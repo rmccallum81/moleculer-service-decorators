@@ -1,0 +1,18 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "linterOptions": {
+        "exclude": [
+            "server",
+            "tests"
+        ]
+    },
+    "rules": {
+        "ban-types": false,
+        "interface-name": false
+    },
+    "rulesDirectory": []
+}

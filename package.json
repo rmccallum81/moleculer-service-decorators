@@ -1,0 +1,56 @@
+{
+  "name": "moleculer-d",
+  "version": "0.1.0",
+  "description": "Typescript decorators for Moleculer",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "tslint --project ."
+  },
+  "keywords": [
+    "typescript",
+    "moleculer",
+    "microservice",
+    "decorators"
+  ],
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/rmccallum81/moleculer-service-decorators/blob/master/package.json"
+  },
+  "author": "Ryan McCallum",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bluebird": "^3.5.20",
+    "@types/jest": "^22.2.3",
+    "@types/node": "^9.6.5",
+    "jest": "^22.4.3",
+    "moleculer": "^0.12.2",
+    "ts-jest": "^22.4.3",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [],
+    "testRegex": "(\\/tests\\/(.*\\/)?.*(test|spec)\\.tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.12"
+  },
+  "peerDependencies": {
+    "moleculer": "^0.12.1"
+  }
+}
