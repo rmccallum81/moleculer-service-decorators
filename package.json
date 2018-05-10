@@ -1,5 +1,5 @@
 {
-  "name": "moleculer-d",
+  "name": "moleculer-service-decorators",
   "version": "0.1.0",
   "description": "Typescript decorators for Moleculer",
   "main": "index.js",

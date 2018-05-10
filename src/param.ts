@@ -65,6 +65,25 @@ export function context(): ParameterDecorator {
     };
 }
 
+export function meta(): ParameterDecorator {
+    return (target: Object, propertyKey: string | symbol, parameterIndex: number) => {
+        const desc = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
+        let paramName: string;
+
+        if (name) {
+            paramName = name;
+        } else {
+            paramName = getParamNames(desc.value)[parameterIndex];
+        }
+
+        if (!paramName) {
+            throw new ReferenceError("Parameter name not specified");
+        }
+
+        setMetadata(target, `${propertyKey}Meta`, { paramName, index: parameterIndex });
+    };
+}
+
 /**
  * Fastest Validator implementation of the `any` type
  * @param options The name of the param and whether it is required

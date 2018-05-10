@@ -23,13 +23,18 @@ export function action(options?: ActionOptions): MethodDecorator {
             const actions = getMetadata(target, "actions") || {};
             const params = getMetadata(target, `${propertyKey}Params`);
             const contextParam = getMetadata(target, `${propertyKey}Context`);
+            const metaParam = getMetadata(target, `${propertyKey}Meta`);
             const handler = opts.params || !params ? func : (ctx: Context) => {
                 const args = getParamNames(func).map((param) => {
                     return ctx.params[param];
                 });
 
                 if (contextParam) {
-                    args.splice(contextParam.index, 0, [ctx]);
+                    args.splice(contextParam.index, 0, ctx);
+                }
+
+                if (metaParam) {
+                    args.splice(metaParam.index, 0, ctx.meta);
                 }
 
                 return (func as Function).call(target, ...args);

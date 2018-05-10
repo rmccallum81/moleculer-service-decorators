@@ -5,6 +5,7 @@ import {
 
 import { META_PREFIX } from "./constants";
 
+import { DecoratorError } from "./error";
 import {
     getMetadata,
     getMetadataKeys,
@@ -68,16 +69,16 @@ export function service(options: ServiceOptions = {}): ServiceDecorator {
                 const keys = getClassMetadata(constructor.prototype);
                 Object.assign(schema, keys);
             } catch (ex) {
-                console.error(ex);
+                throw new DecoratorError("An arror occured creating the service schema", ex);
             }
 
-            console.log("schema", schema);
+            // console.log("schema", schema);
 
             return class extends constructor {
                 constructor(...args: any[]) {
                     super(...args);
                     this.parseServiceSchema(schema);
-                    console.log(this.name);
+                    // console.log(this.name);
                 }
             };
         }
