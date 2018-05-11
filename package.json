@@ -2,7 +2,7 @@
   "name": "moleculer-service-decorators",
   "version": "0.1.0",
   "description": "Typescript decorators for Moleculer",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "github",
-    "url": "https://github.com/rmccallum81/moleculer-service-decorators/blob/master/package.json"
+    "url": "https://github.com/rmccallum81/moleculer-service-decorators"
   },
   "author": "Ryan McCallum",
   "license": "MIT",
@@ -52,5 +52,8 @@
   },
   "peerDependencies": {
     "moleculer": "^0.12.1"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
