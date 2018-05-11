@@ -53,6 +53,7 @@
   "peerDependencies": {
     "moleculer": "^0.12.1"
   },
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ]
