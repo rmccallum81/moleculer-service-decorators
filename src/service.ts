@@ -12,8 +12,6 @@ import {
     removeMetadata,
 } from "./utils/metadata";
 
-        // tslint:disable:no-console
-
 /**
  * Type guard to ensure a constructor is an extended Moleculer Service
  * @param constructor The constructor to check
@@ -28,7 +26,7 @@ export function isServiceClass(constructor: any): constructor is ServiceConstruc
  */
 export function getClassMetadata(constructor: ServiceConstructor): Partial<ServiceSchema> {
     const keys = getMetadataKeys(constructor);
-    const schemaKeys: Partial<ServiceSchema> = {};
+    const schemaKeys: Partial<ServiceSchema & {[k: string]: any}> = {};
 
     keys.forEach((key) => {
         if (typeof key === "string" && key.startsWith(META_PREFIX)) {
@@ -41,19 +39,28 @@ export function getClassMetadata(constructor: ServiceConstructor): Partial<Servi
     return schemaKeys;
 }
 
-export interface ServiceOptions {
-    name?: ServiceSchema["name"];
-    version?: ServiceSchema["version"];
-    settings?: ServiceSchema["settings"];
-    metadata?: ServiceSchema["metadata"];
-    dependencies?: ServiceSchema["dependencies"];
-    mixins?: ServiceSchema["mixins"];
-}
+/**
+ * These options should be set in the class itself instead of the options
+ */
+export type ServiceOptionsToExclude = "actions" |
+                                      "events" |
+                                      "methods" |
+                                      "created" |
+                                      "started" |
+                                      "stopped";
+
+export type ServiceOptions = Partial<Pick<ServiceSchema,
+                                  Exclude<keyof ServiceSchema,
+                                        ServiceOptionsToExclude>>>;
 
 export interface ServiceConstructor { new(...args: any[]): Service; }
 
 export type ServiceDecorator = <T extends ServiceConstructor>(constructor: T) => T;
 
+/**
+ * Add all handlers to the schema for the service
+ * @param options
+ */
 export function service(options: ServiceOptions = {}): ServiceDecorator {
     return <T extends ServiceConstructor>(constructor: T) => {
         if (isServiceClass(constructor)) {
@@ -72,13 +79,10 @@ export function service(options: ServiceOptions = {}): ServiceDecorator {
                 throw new DecoratorError("An arror occured creating the service schema", ex);
             }
 
-            // console.log("schema", schema);
-
             return class extends constructor {
                 constructor(...args: any[]) {
                     super(...args);
                     this.parseServiceSchema(schema);
-                    // console.log(this.name);
                 }
             };
         }

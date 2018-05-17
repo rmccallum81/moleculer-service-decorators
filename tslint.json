@@ -12,7 +12,11 @@
     },
     "rules": {
         "ban-types": false,
-        "interface-name": false
+        "interface-name": false,
+        "variable-name": [
+            true,
+            "allow-leading-underscore"
+        ]
     },
     "rulesDirectory": []
 }
