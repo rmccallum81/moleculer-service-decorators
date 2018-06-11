@@ -64,7 +64,7 @@ export type ServiceDecorator = <T extends ServiceConstructor>(constructor: T) =>
 export function service(options: ServiceOptions = {}): ServiceDecorator {
     return <T extends ServiceConstructor>(constructor: T) => {
         if (isServiceClass(constructor)) {
-            const schema: ServiceSchema = {
+            let schema: ServiceSchema = {
                 name: options.name || constructor.name,
             };
 
@@ -74,9 +74,9 @@ export function service(options: ServiceOptions = {}): ServiceDecorator {
 
             try {
                 const keys = getClassMetadata(constructor.prototype);
-                Object.assign(schema, keys);
+                schema = { ...schema, keys };
             } catch (ex) {
-                throw new DecoratorError("An arror occured creating the service schema", ex);
+                throw new DecoratorError("An error occured creating the service schema", ex);
             }
 
             return class extends constructor {
