@@ -74,7 +74,7 @@ export function service(options: ServiceOptions = {}): ServiceDecorator {
 
             try {
                 const keys = getClassMetadata(constructor.prototype);
-                schema = { ...schema, keys };
+                schema = { ...schema, ...keys };
             } catch (ex) {
                 throw new DecoratorError("An error occured creating the service schema", ex);
             }

@@ -19,11 +19,12 @@ export function action(options?: ActionOptions): MethodDecorator {
     return <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => {
         const func: any = descriptor.value;
         if (func && isFunction(func)) {
-            const opts: ActionOptions = { name: propertyKey.toString(), ...options };
+            const keyName: string = propertyKey.toString();
+            const opts: ActionOptions = { name: keyName, ...options };
             const actions = getMetadata(target, "actions") || {};
-            const params = getMetadata(target, `${propertyKey}Params`);
-            const contextParam = getMetadata(target, `${propertyKey}Context`);
-            const metaParam = getMetadata(target, `${propertyKey}Meta`);
+            const params = getMetadata(target, `${keyName}Params`);
+            const contextParam = getMetadata(target, `${keyName}Context`);
+            const metaParam = getMetadata(target, `${keyName}Meta`);
             const handler = opts.params || !params ? func : (ctx: Context) => {
                 const args = getParamNames(func).map((param) => {
                     return ctx.params[param];
@@ -46,7 +47,7 @@ export function action(options?: ActionOptions): MethodDecorator {
                 params,
             };
             setMetadata(target, "actions", actions);
-            removeMetadata(target, `${propertyKey}Params`);
+            removeMetadata(target, `${keyName}Params`);
 
             return descriptor;
         } else {

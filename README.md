@@ -2,6 +2,7 @@
 
 # Moleculer Service Decorators
 [![Powered by moleculer](https://img.shields.io/badge/Powered%20by-Moleculer-green.svg?colorB=0e83cd)](http://moleculer.services/)
+[![npm](https://img.shields.io/npm/v/moleculer-service-decorators.svg)](https://www.npmjs.com/package/moleculer-service-decorators)
 
 ES7/Typescript Decorators for [Moleculer](https://github.com/moleculerjs/moleculer)
 

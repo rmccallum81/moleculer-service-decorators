@@ -21,7 +21,7 @@ export interface ParamOptions extends ParamTypeOptions {
 export function param({ name, type, ...options }: ParamOptions): ParameterDecorator {
     return (target: Object, propertyKey: string | symbol, parameterIndex: number) => {
         const desc = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
-        const actionParams = getMetadata(target, `${propertyKey}Params`) || {};
+        const actionParams = getMetadata(target, `${propertyKey.toString()}Params`) || {};
         let validation;
 
         let paramName: string;
@@ -46,7 +46,7 @@ export function param({ name, type, ...options }: ParamOptions): ParameterDecora
             [paramName]: validation,
         };
 
-        setMetadata(target, `${propertyKey}Params`, params);
+        setMetadata(target, `${propertyKey.toString()}Params`, params);
     };
 }
 
@@ -68,7 +68,7 @@ export function context(): ParameterDecorator {
             throw new ReferenceError("Parameter name not specified");
         }
 
-        setMetadata(target, `${propertyKey}Context`, { paramName, index: parameterIndex });
+        setMetadata(target, `${propertyKey.toString()}Context`, { paramName, index: parameterIndex });
     };
 }
 
@@ -90,7 +90,7 @@ export function meta(): ParameterDecorator {
             throw new ReferenceError("Parameter name not specified");
         }
 
-        setMetadata(target, `${propertyKey}Meta`, { paramName, index: parameterIndex });
+        setMetadata(target, `${propertyKey.toString()}Meta`, { paramName, index: parameterIndex });
     };
 }
 
