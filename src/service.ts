@@ -64,13 +64,11 @@ export type ServiceDecorator = <T extends ServiceConstructor>(constructor: T) =>
 export function service(options: ServiceOptions = {}): ServiceDecorator {
     return <T extends ServiceConstructor>(constructor: T) => {
         if (isServiceClass(constructor)) {
+            // TODO: Filter options to remove actions, events, etc..
             let schema: ServiceSchema = {
+                ...options,
                 name: options.name || constructor.name,
             };
-
-            if (options.settings) {
-                schema.settings = options.settings;
-            }
 
             try {
                 const keys = getClassMetadata(constructor.prototype);

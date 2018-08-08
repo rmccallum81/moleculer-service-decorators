@@ -38,7 +38,7 @@
     "collectCoverage": true,
     "collectCoverageFrom": [],
     "testRegex": "(\\/tests\\/(.*\\/)?.*(test|spec)\\.tsx?)$",
-    "testURL": "http://localhost/",
+    "testEnvironment": "node",
     "moduleFileExtensions": [
       "ts",
       "tsx",
