@@ -16,7 +16,6 @@ describe("Class decorator", () => {
             class Test extends Service { }
         };
         expect(defClass).not.toThrow(TypeError);
-        expect(defClass()).toHaveProperty("name", "Test");
     });
 
     it("should not allow non-sevice classes", () => {
@@ -29,7 +28,7 @@ describe("Class decorator", () => {
         expect(defClass).toThrow(TypeError);
     });
 
-    it.only("should allow options", () => {
+    it("should allow options", () => {
         const defClass = () => {
             class Base extends Service {}
 
@@ -50,7 +49,7 @@ describe("Class decorator", () => {
                 @event({name: "test.ended", group: "test"})
                 public testEnded(payload: any, sender: string, eventName: string) {}
             }
-            return new HelpTest(new ServiceBroker());
+            return new HelpTest(new ServiceBroker({logger: false}));
         };
         expect(defClass).not.toThrow(TypeError);
         const test = defClass();

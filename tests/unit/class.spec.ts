@@ -9,7 +9,7 @@ import { service } from "../../src/service";
 
 // tslint:disable:max-classes-per-file
 describe("Class decorator", () => {
-    it.only("should pass", () => {
+    it("should pass", () => {
         const defClass = () => {
             @service()
             class Test extends Service { }
@@ -37,7 +37,7 @@ describe("Class decorator", () => {
                     super(broker, schema);
                 }
             }
-            return new HelpTest(new ServiceBroker());
+            return new HelpTest(new ServiceBroker({logger: false}));
         };
         expect(defClass).not.toThrow(TypeError);
         const test = defClass();
