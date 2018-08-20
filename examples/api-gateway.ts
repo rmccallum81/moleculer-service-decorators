@@ -28,3 +28,4 @@ class Example extends Service {
 
 const broker = new ServiceBroker();
 broker.createService(Example);
+broker.start();
