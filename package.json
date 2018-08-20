@@ -1,6 +1,6 @@
 {
   "name": "moleculer-service-decorators",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Typescript decorators for Moleculer",
   "main": "dist/index.js",
   "scripts": {
