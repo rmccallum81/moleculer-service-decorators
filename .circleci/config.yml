@@ -58,12 +58,12 @@ jobs:
       - run: yarn build
 
 workflows:
-  all:
+  all_jobs:
     jobs:
       - install_and_audit
-      - test
+      - test:
           requires:
             - install_and_audit
-      - build
+      - build:
           requires:
             - install_and_audit
