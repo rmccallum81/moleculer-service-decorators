@@ -14,6 +14,7 @@ describe("Class decorator", () => {
         const defClass = () => {
             @service()
             class Test extends Service { }
+            return Test;
         };
         expect(defClass).not.toThrow(TypeError);
     });
@@ -22,8 +23,11 @@ describe("Class decorator", () => {
         const defClass = () => {
             class BaseTest {}
 
+            // @ts-ignore
             @service()
             class ErrorTest extends BaseTest { }
+
+            return ErrorTest;
         };
         expect(defClass).toThrow(TypeError);
     });
@@ -38,16 +42,16 @@ describe("Class decorator", () => {
                     super(broker, schema);
                 }
                 @action()
-                public help(@param({ type: "string", min: 2 }) text: string,
-                            @param({type: "number", optional: true}) page: number) {}
+                public help(@param({ type: "string", min: 2 }) _text: string,
+                            @param({type: "number", optional: true}) _page: number) {}
                 @action()
-                public test(@string({optional: true}) testParam: string) {}
+                public test(@string({optional: true}) _testParam: string) {}
 
                 @event()
-                public "test.started"(payload: any, sender: string, eventName: string) {}
+                public "test.started"(_payload: any, _sender: string, _eventName: string) {}
 
                 @event({name: "test.ended", group: "test"})
-                public testEnded(payload: any, sender: string, eventName: string) {}
+                public testEnded(_payload: any, _sender: string, _eventName: string) {}
             }
             return new HelpTest(new ServiceBroker({logger: false}));
         };

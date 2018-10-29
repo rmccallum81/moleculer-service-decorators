@@ -2,9 +2,9 @@ import "jest";
 
 import { Service, ServiceBroker, ServiceSchema } from "moleculer";
 
-import { action } from "../../src/action";
-import { event } from "../../src/event";
-import { param, string } from "../../src/param";
+// import { action } from "../../src/action";
+// import { event } from "../../src/event";
+// import { param, string } from "../../src/param";
 import { service } from "../../src/service";
 
 // tslint:disable:max-classes-per-file
@@ -13,6 +13,7 @@ describe("Class decorator", () => {
         const defClass = () => {
             @service()
             class Test extends Service { }
+            return Test;
         };
         expect(defClass).not.toThrow(TypeError);
     });
@@ -21,8 +22,11 @@ describe("Class decorator", () => {
         const defClass = () => {
             class BaseTest {}
 
+            // @ts-ignore
             @service()
             class ErrorTest extends BaseTest { }
+
+            return ErrorTest;
         };
         expect(defClass).toThrow(TypeError);
     });
