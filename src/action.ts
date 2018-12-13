@@ -41,10 +41,13 @@ export function action(options?: ActionOptions): MethodDecorator {
                 return (func as Function).call(target, ...args);
             };
 
+            if (params) {
+                opts.params = params;
+            }
+
             actions[propertyKey] = {
                 handler,
                 ...opts,
-                params,
             };
             setMetadata(target, "actions", actions);
             removeMetadata(target, `${keyName}Params`);
