@@ -1,4 +1,4 @@
-import { Cachers, Context, Logger, ServiceBroker, Errors } from "moleculer";
+import { Cachers, Context, Errors, ServiceBroker } from "moleculer";
 
 import GreeterService from "../services/greeter.service";
 import MathService from "../services/math.service";
