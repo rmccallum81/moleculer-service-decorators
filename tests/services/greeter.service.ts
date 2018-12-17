@@ -7,6 +7,7 @@ import {
     serviceCreated,
     serviceStarted,
     serviceStopped,
+    string,
 } from "../../src/index";
 
 @service({
@@ -38,6 +39,11 @@ class GreeterService extends Service {
     })
     public welcome(ctx: Context) {
         return this.sayWelcome(ctx.params.name);
+    }
+
+    @action()
+    public goodbye(@string() name: string) {
+        return `Goodbye, ${this.settings.upperCase ? name.toUpperCase() : name}`;
     }
 
     // Event handler

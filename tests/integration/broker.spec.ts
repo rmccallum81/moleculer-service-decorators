@@ -7,7 +7,7 @@ describe("Test load services", () => {
     let broker: ServiceBroker;
 
     beforeAll(async (done) => {
-        broker = new ServiceBroker({ logger: false });
+        broker = new ServiceBroker({ cacher: "Memory", logger: true });
         broker.createService(GreeterService);
 
         await broker.start();
@@ -25,9 +25,19 @@ describe("Test load services", () => {
         expect(res).toEqual("Hello Moleculer");
     });
 
-    it("should give error when param is invalid", () => {
+    it("should give error when param is invalid", async () => {
         const err = broker.call("v2.greeter.welcome", { name: 1 });
-        return expect(err).rejects.toBeInstanceOf(Errors.ValidationError);
+        await expect(err).rejects.toBeInstanceOf(Errors.ValidationError);
+    });
+
+    it("should give result when param is valid", async () => {
+        const err = broker.call("v2.greeter.welcome", { name: "Tests" });
+        await expect(err).resolves.toEqual("Welcome, TESTS");
+    });
+
+    it("should give result when param is valid", async () => {
+        const err = broker.call("v2.greeter.goodbye", { name: "Tests" });
+        await expect(err).resolves.toEqual("Goodbye, TESTS");
     });
 });
 

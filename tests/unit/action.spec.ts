@@ -43,7 +43,7 @@ describe("Class decorator", () => {
                 }
                 @action()
                 public help(@param({ type: "string", min: 2 }) _text: string,
-                            @param({type: "number", optional: true}) _page: number) {}
+                            @param({type: "number", optional: true}) _page: number) { }
                 @action()
                 public test(@string({optional: true}) _testParam: string) {}
 

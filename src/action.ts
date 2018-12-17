@@ -25,21 +25,24 @@ export function action(options?: ActionOptions): MethodDecorator {
             const params = getMetadata(target, `${keyName}Params`);
             const contextParam = getMetadata(target, `${keyName}Context`);
             const metaParam = getMetadata(target, `${keyName}Meta`);
-            const handler = opts.params || !params ? func : (ctx: Context) => {
-                const args = getParamNames(func).map((param) => {
-                    return ctx.params[param];
-                });
+            if (!(opts.params || !params)) {
+                descriptor.value = ((ctx: Context) => {
+                    const args = getParamNames(func).map((param) => {
+                        return ctx.params[param];
+                    });
 
-                if (contextParam) {
-                    args.splice(contextParam.index, 0, ctx);
-                }
+                    if (contextParam) {
+                        args.splice(contextParam.index, 0, ctx);
+                    }
 
-                if (metaParam) {
-                    args.splice(metaParam.index, 0, ctx.meta);
-                }
+                    if (metaParam) {
+                        args.splice(metaParam.index, 0, ctx.meta);
+                    }
 
-                return (func as Function).call(target, ...args);
-            };
+                    return (func as Function).call(ctx.service, ...args);
+                }) as any;
+            }
+            const handler = descriptor.value;
 
             if (params) {
                 opts.params = params;
