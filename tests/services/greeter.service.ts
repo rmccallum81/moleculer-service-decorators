@@ -41,6 +41,20 @@ class GreeterService extends Service {
         return this.sayWelcome(ctx.params.name);
     }
 
+    // Action handler
+    @action({
+        cache: {
+            keys: ["name"],
+        },
+        params: {
+            name: { type: "string" },
+            type: { type: "enum", values: ["test", "value"]},
+        },
+    })
+    public goodday(ctx: Context) {
+        return this.sayWelcome(ctx.params.name);
+    }
+
     @action()
     public goodbye(@string() name: string) {
         return `Goodbye, ${this.settings.upperCase ? name.toUpperCase() : name}`;

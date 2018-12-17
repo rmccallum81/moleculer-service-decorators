@@ -30,6 +30,11 @@ describe("Test load services", () => {
         await expect(err).rejects.toBeInstanceOf(Errors.ValidationError);
     });
 
+    it("should give error when param is invalid using object parameter definitions", async () => {
+        const err = broker.call("v2.greeter.goodday", { name: 1 });
+        await expect(err).rejects.toBeInstanceOf(Errors.ValidationError);
+    });
+
     it("should give result when param is valid", async () => {
         const err = broker.call("v2.greeter.welcome", { name: "Tests" });
         await expect(err).resolves.toEqual("Welcome, TESTS");
