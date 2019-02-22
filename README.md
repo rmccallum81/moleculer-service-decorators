@@ -113,7 +113,7 @@ class Example2 extends Service {
 ```
 
 ## Events
-Event handlers are added easliy with options available to make it more flexible.
+Event handlers are added easily with options available to make it more flexible.
 ```ts
 @service()
 class Example extends Service {
