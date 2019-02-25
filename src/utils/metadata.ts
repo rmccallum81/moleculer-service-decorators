@@ -14,13 +14,13 @@ function prefixKey(key: string) {
 }
 
 export function getMetadataKeys(target: any) {
-    const keys = Reflect.getOwnMetadataKeys(target) || [];
+    const keys = Reflect.getMetadataKeys(target) || [];
     return keys.filter((key: string) => key.toString().startsWith(META_PREFIX));
 }
 
 export function getMetadata(target: any, key: string) {
     const prefixedKey = prefixKey(key);
-    const data = Reflect.getOwnMetadata(prefixedKey, target);
+    const data = Reflect.getMetadata(prefixedKey, target);
     return data;
 }
 

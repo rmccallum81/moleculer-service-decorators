@@ -61,4 +61,35 @@ describe("Class decorator", () => {
         expect(test).toHaveProperty("schema");
         expect(test.schema).toHaveProperty("actions");
     });
+
+    it("should allow inheritance", () => {
+        const defClass = () => {
+            class Base extends Service {
+                @action()
+                public help(@param({ type: "string", min: 2 }) _text: string,
+                            @param({type: "number", optional: true}) _page: number) { }
+                @action()
+                public test(@string({optional: true}) _testParam: string) {}
+            }
+
+            @service({name: "Tester"})
+            class HelpTest extends Base {
+                @event()
+                public "test.started"(_payload: any, _sender: string, _eventName: string) {}
+
+                @event({name: "test.ended", group: "test"})
+                public testEnded(_payload: any, _sender: string, _eventName: string) {}
+            }
+
+            const broker = new ServiceBroker({logger: false});
+            return new HelpTest(broker);
+        };
+        expect(defClass).not.toThrow(TypeError);
+        const test = defClass();
+
+        expect(test).toHaveProperty("name", "Tester");
+        expect(test).toHaveProperty("schema");
+        expect(test.schema).toHaveProperty("actions");
+        expect(test.schema).toHaveProperty("events");
+    });
 });
