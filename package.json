@@ -22,7 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/bluebird": "^3.5.23",
-    "@types/jest": "^23.3.14",
+    "@types/jest": "^24.0.6",
     "@types/node": "^9.6.26",
     "jest": "^24.1.0",
     "moleculer": "^0.13.1",
