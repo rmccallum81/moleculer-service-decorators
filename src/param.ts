@@ -53,7 +53,7 @@ export function param({ name, type, ...options }: ParamOptions): ParameterDecora
 /**
  * Add the action Context to the parameter when the action is executed
  */
-export function context(): ParameterDecorator {
+export function context(name?: string): ParameterDecorator {
     return (target: Object, propertyKey: string | symbol, parameterIndex: number) => {
         const desc = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
         let paramName: string;
@@ -75,7 +75,7 @@ export function context(): ParameterDecorator {
 /**
  * Add the Context Metadata to the parameter when the action is executed
  */
-export function meta(): ParameterDecorator {
+export function meta(name?: string): ParameterDecorator {
     return (target: Object, propertyKey: string | symbol, parameterIndex: number) => {
         const desc = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
         let paramName: string;

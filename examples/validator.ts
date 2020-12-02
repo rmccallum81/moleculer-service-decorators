@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import { Service, ServiceBroker } from "moleculer";
+import { Service } from "moleculer";
 
 import {
     service,
