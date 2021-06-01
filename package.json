@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/bluebird": "^3.5.33",
     "@types/jest": "^26.0.6",
-    "@types/node": "^14.14.10",
+    "@types/node": "^15.6.1",
     "jest": "^26.1.0",
     "moleculer": "^0.13.13",
     "ts-jest": "^26.0.0",
