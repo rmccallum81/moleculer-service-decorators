@@ -19,7 +19,7 @@ describe("Test load services", () => {
     });
 
     it("should create service from class", async () => {
-        expect(broker.getLocalService("greeter", 2)).toBeDefined();
+        expect(broker.getLocalService({name: "greeter", version: 2})).toBeDefined();
         expect(broker.registry.actions.isAvailable("v2.greeter.hello")).toBe(true);
         const res = await broker.call("v2.greeter.hello");
         expect(res).toEqual("Hello Moleculer");
@@ -55,10 +55,10 @@ describe.skip("Test local call", () => {
     broker.createService(MathService);
 
     it("should return context & call the action handler", () => {
-        return broker.call("math.add", {a: 1, b: 1}).then((ctx: Context) => {
+        return broker.call<Context<number>, any>("math.add", {a: 1, b: 1}).then((ctx) => {
             expect(ctx).toBeDefined();
             expect(ctx.broker).toBe(broker);
-            expect(ctx.action.name).toBe("posts.find");
+            expect(ctx.action!.name).toBe("posts.find");
             expect(ctx.nodeID).toBe(broker.nodeID);
             expect(ctx.params).toBeDefined();
             expect(actionHandler).toHaveBeenCalledTimes(1);
@@ -68,7 +68,7 @@ describe.skip("Test local call", () => {
 
     it("should set params to context", () => {
         const params = { a: 1 };
-        return broker.call("posts.find", params).then((ctx: Context) => {
+        return broker.call<Context<any>, any>("posts.find", params).then((ctx) => {
             expect(ctx.params).toEqual({ a: 1});
         });
     });
