@@ -1,5 +1,4 @@
-import { Action, Context } from "moleculer";
-import { isFunction } from "util";
+import { ActionSchema, Context } from "moleculer";
 
 import {
     getMetadata,
@@ -9,16 +8,16 @@ import {
 import { getParamNames } from "./utils/parameters";
 
 export interface ActionOptions {
-    name?: Action["name"];
-    cache?: Action["cache"];
-    metrics?: Action["metrics"];
-    params?: Action["params"];
+    name?: ActionSchema["name"];
+    cache?: ActionSchema["cache"];
+    metrics?: ActionSchema["metrics"];
+    params?: ActionSchema["params"];
 }
 
 export function action(options?: ActionOptions): MethodDecorator {
     return <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => {
         const func: any = descriptor.value;
-        if (func && isFunction(func)) {
+        if (func && typeof func === 'function') {
             const keyName: string = propertyKey.toString();
             const opts: ActionOptions = { name: keyName, ...options };
             const actions = getMetadata(target, "actions") || {};
@@ -26,7 +25,7 @@ export function action(options?: ActionOptions): MethodDecorator {
             const contextParam = getMetadata(target, `${keyName}Context`);
             const metaParam = getMetadata(target, `${keyName}Meta`);
             if (!(opts.params || !params)) {
-                descriptor.value = ((ctx: Context) => {
+                descriptor.value = ((ctx: Context<any>) => {
                     const args = getParamNames(func).map((param) => {
                         return ctx.params[param];
                     });

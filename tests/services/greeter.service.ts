@@ -37,7 +37,7 @@ class GreeterService extends Service {
             name: "string",
         },
     })
-    public welcome(ctx: Context) {
+    public welcome(ctx: Context<any>) {
         return this.sayWelcome(ctx.params.name);
     }
 
@@ -51,7 +51,7 @@ class GreeterService extends Service {
             type: { type: "enum", values: ["test", "value"]},
         },
     })
-    public goodday(ctx: Context) {
+    public goodday(ctx: Context<any>) {
         return this.sayWelcome(ctx.params.name);
     }
 

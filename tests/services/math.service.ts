@@ -20,7 +20,7 @@ export class MathService extends Service {
             b: { type: "number" },
         },
     })
-    public mult(ctx: Context) {
+    public mult(ctx: Context<any>) {
         return Number(ctx.params.a) * Number(ctx.params.b);
     }
 
